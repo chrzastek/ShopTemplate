@@ -1,0 +1,51 @@
+﻿@model RatesViewModel
+@{
+    ViewBag.Title = "My Rates";
+}
+
+@if (Model.ProductsToRate.Count > 0)
+{
+    <h2>You have following products to rate:</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date of purchase</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.ProductsToRate.Count; i++)
+            {
+                <tr>
+                    <td>@(i + 1).</td>
+                    <td>@Model.ProductsToRate[i].DateOfPurchase</td>
+                    <td><a asp-controller="Home" asp-action="ProductInfo" asp-route-productId="@Model.ProductsToRate[i].Id">@Model.ProductsToRate[i].Name</a></td>
+                    <td><a asp-action="Rate" asp-route-productId="@Model.ProductsToRate[i].Id" class="btn btn-primary">Rate</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.GivenRates.Count > 0)
+{
+    <h2>Your given rates:</h2>
+    @foreach (Rate rate in Model.GivenRates)
+    {
+    <div class="well">
+        <strong><a asp-action="ProductInfo" asp-controller="Home" asp-route-productId="@rate.Product.Id">@rate.Product.Name</a></strong><br />
+        @rate.AddedDate<br />
+        @rate.Rating <span class="glyphicon glyphicon-star"></span><br /> 
+        <textarea asp-for="@rate.Text" rows="6" cols="40" class="form-control" readonly></textarea>
+    </div>
+    }
+}
+
+@if (Model.ProductsToRate.Count < 1 && Model.GivenRates.Count < 1)
+{
+    <h3>No rates added by you.</h3>
+    <p>Do first shopping and add your ratings!</p>
+}

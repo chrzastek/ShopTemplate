@@ -1,0 +1,38 @@
+﻿@model ProductToRate
+@{ ViewBag.Title = "Rate Product"; }
+
+<h2>Rate</h2>
+<div class="well">
+    <a asp-controller="Home" asp-action="ProductInfo" asp-route-productId="@Model.Id">
+        <img src="~/@Model.ImagePath" />
+        <span class="lead">@Model.Name</span>
+    </a>
+</div>
+<div class="well">
+
+    <form asp-action="Rate" method="post" class="form-horizontal">
+
+        <label asp-for="@Model.Text">Your review:</label>
+        <textarea asp-for="@Model.Text" rows="6" class="form-control"></textarea>
+        <span asp-validation-for="@Model.Text" class="text-danger"></span>
+
+        <label>Rate points: </label>
+        <select asp-for="@Model.Rating">
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+        </select>
+        <span asp-validation-for="@Model.Rating" class="text-danger"></span>
+
+        <input asp-for="@Model.Id" value="@Model.Id" hidden />
+        <input asp-for="@Model.Name" value="@Model.Name" hidden />
+        <input asp-for="@Model.ImagePath" value="@Model.ImagePath" hidden />
+
+        <div class="clearfix"></div>
+        <input type="submit" class="btn btn-primary" value="Add rating" />
+
+    </form>
+
+</div>

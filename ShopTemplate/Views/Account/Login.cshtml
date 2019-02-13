@@ -1,0 +1,48 @@
+﻿@model LoginViewModel
+
+@{ ViewBag.Title = "Log in"; }
+
+<h2>Please provide your log-in information</h2>
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-1">
+
+        <form asp-action="Login" asp-controller="Account" method="post" class="form-horizontal">
+
+            <div class="form-group">
+                <label asp-for="UserName" class="col-md-2 control-label"></label>
+                <div class="col-md-3">
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="col-md-2 control-label"></label>
+                <div class="col-md-3">
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <input asp-for="ReturnUrl" value="@Model.ReturnUrl" type="hidden" />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-primary" value="Log in" />
+                    <a asp-action="ForgotPassword">Forgot password?</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-sm-2 col-lg-pull-2">
+        <label>Login with Google</label>
+        <a asp-action="LoginExternal" asp-controller="Account" asp-route-provider="google" asp-route-returnUrl="@Model.ReturnUrl"><img src="~/images/external/google.png" /></a>
+    </div>
+
+</div>
+
+
+

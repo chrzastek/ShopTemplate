@@ -1,0 +1,55 @@
+﻿@model OrdersListViewModel
+
+@{ ViewBag.Title = "Orders"; }
+
+<h2>Your orders</h2>
+@if (Model.Orders.Count() < 1)
+{
+    <p>You have no orders! Go to shop and place an order!</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-orderSortingType="Id" asp-route-previousSortingOption="@Model.PreviousSortingOption">
+                    ID 
+                    <span class="glyphicon glyphicon-sort"></span>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-orderSortingType="Date" asp-route-previousSortingOption="@Model.PreviousSortingOption">
+                    Date 
+                    <span class="glyphicon glyphicon-sort"></span>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-orderSortingType="Total" asp-route-previousSortingOption="@Model.PreviousSortingOption">
+                    Total
+                    <span class="glyphicon glyphicon-sort"></span>
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-orderSortingType="State" asp-route-previousSortingOption="@Model.PreviousSortingOption">
+                    State 
+                    <span class="glyphicon glyphicon-sort"></span>
+                    </a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Order order in Model.Orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Date</td>
+                    <td>@order.Total.ToString("c")</td>
+                    <td><span class="label label-info">@order.State</span></td>
+                    <td><a asp-action="Details" asp-route-orderId="@order.Id" class="btn btn-primary">Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

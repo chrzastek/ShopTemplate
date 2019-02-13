@@ -1,0 +1,26 @@
+﻿@model  FilterViewModel
+
+<div class="row">
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <div class="col-sm-3">
+
+        </div>
+            <div class="col-sm-2">
+                <label>Items per page</label>
+                <h4> <select asp-items="Model.ItemPerPageRanges" asp-for="SelectedItemPerPage" name="itemsPerPage"></select></h4>
+            </div>
+
+            <div class="col-sm-3">
+                <label>Sort</label>
+                <h4> <select asp-items="Model.SortyByOptions" asp-for="SortingOption" name="SortingOption" class="custom-select"></select></h4>
+            </div>
+            <input type="hidden" value="@Context.Request.Query["category"]" name="category" />
+
+            <input type="hidden" value="@Context.Request.Query["pageNumber"]" name="pageNumber" />
+
+            <div class="col-sm-2">
+                <input type="submit" class="btn btn-secondary" value="Apply" />
+            </div>
+
+    </form>
+</div>

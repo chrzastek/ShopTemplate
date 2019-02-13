@@ -1,0 +1,48 @@
+﻿@model AccountDataViewModel
+@{ ViewBag.Title = "Personal data"; }
+@addTagHelper *, ShopTemplate
+
+<h2>Manage your personal data</h2><br />
+
+<div class="row">
+
+    <div class="col-md-5 col-lg-offset-1">
+        <h3>Delivery address</h3>
+        <form asp-controller="PersonalData" asp-action="Index" method="post" class="form-horizontal">
+
+            @await Component.InvokeAsync("Address");
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-primary" value="Save changes" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-md-4 col-md-offset-1">
+        <h3>Account</h3>
+        <div class="form-horizontal">
+
+            <div class="form-group">
+                <label asp-for="@Model.Name"></label>
+                <input asp-for="@Model.Name" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Email"></label>
+                <input asp-for="@Model.Email" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.EmailConfirmed"></label>
+                <input type="checkbox" asp-for="@Model.EmailConfirmed" class="form-control" readonly />
+            </div>
+        </div>
+
+        <a asp-action="" asp-controller="" class="btn btn-primary">Change email</a>
+        <a asp-action="ForgotPassword" asp-controller="Account" asp-route-email="@Model.Email" class="btn btn-primary">Reset password</a>
+    </div>
+
+</div>

@@ -1,0 +1,87 @@
+﻿@model Product
+
+@{ ViewBag.Title = Model.Name; }
+
+<h2>Product details</h2>
+
+<div class="form-group">
+    <div class="col-md-3">
+        <img src="~/@Model.ImagePath" />
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="form-group">
+    <label asp-for="Id" class="col-md-2 control-label"></label>
+    <div class="col-md-3">
+        <input asp-for="Id" class="form-control" readonly />
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="form-group">
+    <label asp-for="Name" class="col-md-2 control-label"></label>
+    <div class="col-md-3">
+        <input asp-for="Name" class="form-control" readonly />
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="form-group">
+    <label asp-for="Description" class="col-md-2 control-label"></label>
+    <div class="col-md-3">
+        <textarea asp-for="Description" class="form-control" rows="4" readonly></textarea>
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="form-group">
+    <label asp-for="Price" class="col-md-2 control-label"></label>
+    <div class="col-md-3">
+        <input asp-for="Price" class="form-control" readonly />
+    </div>
+</div>
+<div class="clearfix"></div>
+
+@{ double averageRating = Model.ComputeAverageRating(); }
+@if (averageRating != 0)
+{
+    <div class="form-group">
+        <label class="col-md-2 control-label">Rating (@Model.Rates.Count)</label>
+        <div class="col-md-3">
+            <input value="@Math.Round(averageRating, 2).ToString("N2") ★" class="form-control" readonly />
+        </div>
+    </div>
+}
+<div class="clearfix"></div>
+
+<form asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id" asp-route-returnUrl="@Context.Request.QueryString" method="post">
+    <div class="">
+        <input type="submit" class="btn btn-success" value="Add To Cart" />
+    </div>
+</form>
+<div class="clearfix"></div>
+<br />
+<br />
+
+@if (Model.Rates.Count > 0)
+{
+    <h4>Customer's ratings</h4>
+    <div class="col-sm-8">
+        @foreach (Rate rate in Model.Rates)
+        {
+            <div class="well">
+                <strong>@rate.User.UserName says:</strong>
+                <div class="clearfix"></div>
+                <textarea asp-for="@rate.Text" rows="6" cols="40" class="form-control" readonly></textarea>
+                <div class="clearfix"></div>
+                <strong>Rate: @rate.Rating <span class="glyphicon glyphicon-star"></span></strong>
+                <div class="text-right">@rate.AddedDate</div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h4>No ratings yet. Buy and add first!</h4>
+}

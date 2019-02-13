@@ -1,0 +1,28 @@
+﻿@model ProductsViewModel
+
+@{ ViewBag.Title = "ShopTemplate"; }
+
+@await Component.InvokeAsync("Filters", Context.Request.Query["itemsPerPage"].ToString())
+
+@*Items list*@
+<div id="table">
+    @foreach (Product product in Model.Products)
+    {
+        <partial name="Product" model="product" />
+    }
+</div>
+
+@*Pagination*@
+<div class="pull-right">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pagination-lg">
+            @for (int i = 1; i <= Model.PaginateData.NumberOfPages; i++)
+            {
+                string liHtmlClass = i == Model.PaginateData.CurrentPage ? "page-item active" : "page-item";
+                <li class="@liHtmlClass">
+                    <a asp-controller="Home" asp-action="Index" asp-route-pageNumber="@i" asp-route-itemsPerPage="@Context.Request.Query["itemsPerPage"]" asp-route-category="@Model.PaginateData.Category">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

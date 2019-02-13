@@ -1,0 +1,33 @@
+﻿@model ContactViewModel
+
+@{ ViewBag.Title = "Contact"; }
+
+<h2>Contact</h2>
+<div class="clearfix"></div>
+
+<form asp-action="Index" method="post">
+
+    <label>Send us a message:</label>
+    <textarea asp-for="Message" class="form-control" rows="10"></textarea>
+    <span asp-validation-for="Message" class="text-danger"></span>
+
+    <input asp-for="ReturnUrl" value="@Model.ReturnUrl" hidden />
+
+    <div class="col-sm-4 col-sm-pull-0">
+        <label>Your email:</label>
+        @if (string.IsNullOrEmpty(Model.SenderEmail))
+        {
+            <input asp-for="SenderEmail" class="form-control" />
+        }
+        else
+        {
+            <input asp-for="SenderEmail" class="form-control" value="@Model.SenderEmail" readonly/>
+        }
+    </div>
+
+    <div class="clearfix"></div>
+    <br />
+    <span asp-validation-for="SenderEmail" class="text-danger"></span>
+    <input type="submit" class="btn btn-primary" value="Send" />
+
+</form>

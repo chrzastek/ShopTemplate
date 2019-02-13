@@ -1,0 +1,14 @@
+﻿@model CategoriesViewModel
+
+@foreach (string category in Model.Categories)
+{
+    if (category == Model.SelectedCategory)
+    {
+        <a asp-controller="Home" asp-action="Index" asp-route-category="@category" class="btn btn-primary btn-lg btn-block">@category</a>
+    }
+    else
+    {
+        <a asp-controller="Home" asp-action="Index" asp-route-category="@category" class="btn btn-default btn-lg btn-block">@category</a>
+    }
+    <br />
+}

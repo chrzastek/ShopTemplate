@@ -1,0 +1,29 @@
+﻿@model Product
+
+    <div class="well">
+
+        <div class="row">
+
+            <div class="col-md-2">
+                <a asp-action="ProductInfo" asp-route-productId="@Model.Id"><img src="@Model.ImagePath" /></a>
+            </div>
+
+            <div class="col-md-6">
+                <h3>
+                    <strong><a asp-action="ProductInfo" asp-route-productId="@Model.Id">@Model.Name</a></strong>
+                </h3>
+
+                <span class="lead">@Model.Description</span>
+            </div>
+
+            <div class="pull-right col-md-2">
+                <h3><span class="label label-default">@Model.Price.ToString("c")</span></h3>
+                <form asp-controller="Cart" asp-action="Add" asp-route-productId="@Model.Id" asp-route-returnUrl="@Context.Request.QueryString" method="post">
+                    <div class="">
+                        <input type="submit" class="btn btn-success" value="Add To Cart" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>

@@ -1,0 +1,38 @@
+﻿@model CheckoutViewModel
+@addTagHelper *, ShopTemplate
+@{ ViewBag.Title = "Checkout"; }
+
+<h2>Checkout</h2>
+
+<form asp-controller="Checkout" asp-action="Index" method="post" class="form-horizontal">
+
+    <h4 class="center-block">Cart summary</h4>
+    @*<vc:cart-table cart="@Model.Cart"></vc:cart-table>*@
+        @await Component.InvokeAsync("CartTable", Model.Cart)
+    <hr />
+
+    <h4 class="center-block">Delivery address</h4>
+    <div class="well">
+        @await Component.InvokeAsync("Address")
+    </div>
+    <hr />
+
+    <h4 class="center-block">Payment method</h4>
+    @for (int i = 0; i < Model.PaymentTypes.Count; i++)
+    {
+        <label class="radio-inline" title="@Model.PaymentTypes[i].Description"><input asp-for="SelectedPayment" type="radio" value="@Model.PaymentTypes[i].Name" />@Model.PaymentTypes[i].Name</label>
+        <input asp-for="@Model.PaymentTypes[i].Id" hidden />
+        <input asp-for="@Model.PaymentTypes[i].Name" hidden />
+        <input asp-for="@Model.PaymentTypes[i].Description" hidden />
+    }
+    <br />
+    <span asp-validation-for="@Model.SelectedPayment" class="text-danger"></span>
+
+    <div class="form-group">
+        <div class="col-md-offset-10 col-md-8">
+            <input type="submit" class="btn btn-primary" value="Place Order" />
+        </div>
+    </div>
+
+</form>
+

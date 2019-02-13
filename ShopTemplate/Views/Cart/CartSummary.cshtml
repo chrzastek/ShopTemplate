@@ -1,0 +1,19 @@
+﻿@model CartSummaryViewModel
+@addTagHelper *, ShopTemplate
+@{ ViewBag.Title = "Cart summary"; }
+
+<h2 class="center-block">Cart Summary</h2>
+@if (Model.Cart.CartMembers.Count < 1)
+{
+    <p>No items in your cart! Add something!</p>
+}
+else
+{
+    @await Component.InvokeAsync("CartTable", Model.Cart)
+    <form asp-action="Clear" method="post">
+            <input type="submit" class="btn btn-danger" value="Clear cart" />
+    </form>
+
+    <a href="/@Model.ReturnUrl" class="btn btn-danger">Back to shopping</a>
+    <a asp-action="Index" asp-controller="Checkout" class="btn btn-success">Checkout</a>
+}

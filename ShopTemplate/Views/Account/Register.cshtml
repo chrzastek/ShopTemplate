@@ -1,0 +1,56 @@
+﻿@model RegisterViewModel
+@{ ViewBag.Title = "Register"; }
+
+<h2>Register</h2>
+
+<form asp-controller="Account" asp-action="Register" class="form-group" method="post">
+
+    @if (ViewBag.RegisterErrors != null)
+    {
+        foreach (string error in ViewBag.RegisterErrors)
+        {
+            <div class="alert alert-danger">@error</div>
+        }
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+        <label asp-for="UserName"></label>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+        <label asp-for="Password"></label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+        <label asp-for="Password">Confirm password</label>
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+        <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+
+            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Register" />
+        </div>
+    </div>
+
+</form>
